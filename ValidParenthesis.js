@@ -37,6 +37,25 @@ s consists of parentheses only '()[]{}'.
 */
 
 let isValid = (s) => {
+  let tracker = [];
+  let closers = {
+    "(": ")",
+    "[": "]",
+    "{": "}"
+  }
 
+  for (let i = 0; i < s.length; i++) {
+    if (closers[s[i]]) {
+      tracker.push(closers[s[i]])
+    } else {
+      if (tracker.pop() !== s[i]) {
+        return false;
+      }
+    }
+  }
   
+  if (tracker.length > 0) {
+    return false;
+  }
+  return true
 }
