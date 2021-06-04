@@ -34,23 +34,19 @@ let maxSubArray = (nums) => {
   Constraints: O(N) time complexity
   Edge cases: Guaranteed that the input is an array of numbers
 
-  1. Declare a variable that stores largest sum yet
-  2. Add on each contiguous combination at a time with each iteration
-  3. Replace largest sum as they are discovered
+  1. Declare a variable that tracks largest current contiguous sum in iteration
+  2. Declare a variable that tracks largest contiguous sum so far
+  3. Traverse through input array and update each of the above 2 variables until the end
   */
-
-  let largest = nums[0];
-  for (let i = 0; i < nums.length; i++) {
-    let currentSum = nums[i];
-    if (currentSum > largest) {
-      largest = currentSum;
-    }
-    for (let j = i + 1; j < nums.length; j++) {
-      currentSum += nums[j]
-      if (currentSum > largest) {
-        largest = currentSum;
-      }
-    }
+  let maxSoFar = nums[0];
+  let maxSum = nums[0];
+  
+  for (let i = 1; i < nums.length; i++) {
+    let sum = nums[i];
+    let tempSum = sum + maxSoFar;
+    
+    maxSoFar = Math.max(sum, tempSum);
+    maxSum = Math.max(maxSoFar, maxSum);
   }
-  return largest;
+  return maxSum;
 }
